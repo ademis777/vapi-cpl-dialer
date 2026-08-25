@@ -47,7 +47,7 @@ export function normalizeFourLineConfig(value: unknown): FourLineConfig {
       return {
         ...base,
         name: String(source.name || base.name),
-        enabled: Boolean(source.enabled),
+        enabled: source.enabled === undefined ? base.enabled : Boolean(source.enabled),
         vapiApiKey: String(source.vapiApiKey || ''),
         assistantId: String(source.assistantId || ''),
         phoneNumberId: String(source.phoneNumberId || ''),
@@ -64,6 +64,7 @@ export class FourLineRuntimeManager {
   private readonly runtime = new Map<LineId, VapiLineRuntime>();
 
   constructor(private config: FourLineConfig) {
+    this.config = normalizeFourLineConfig(config);
     this.resetRuntime();
   }
 
