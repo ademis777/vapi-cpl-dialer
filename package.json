@@ -1,0 +1,31 @@
+{
+  "name": "vapi-cpl-dialer",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"tsc -p tsconfig.electron.json --watch\" \"wait-on tcp:5173 file:dist-electron/main.js && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "build": "tsc -p tsconfig.electron.json && vite build",
+    "test": "tsc -p tsconfig.electron.json && node --test dist-electron/*.test.js",
+    "start": "electron .",
+    "start:headless": "cross-env DMNT_HEADLESS=1 electron ."
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "typescript": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "electron": "latest",
+    "papaparse": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/papaparse": "latest",
+    "concurrently": "latest",
+    "cross-env": "latest",
+    "wait-on": "latest"
+  }
+}
